@@ -16,6 +16,9 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run crawler
         run: python main.py
+      # 插入此步驟，300 秒等於 5 分鐘
+      - name: 等待 5 分鐘
+        run: sleep 300
 
       - name: 寄送 Email 通知
         uses: dawidd6/action-send-mail@v3
@@ -30,6 +33,6 @@ jobs:
           subject: "爬蟲結果報告 - ${{ github.run_id }}"
           to: "tonykuo@nfu.edu.tw"  # 接收結果的信箱
           from: "GitHub Scraper <your-email@gmail.com>"
-        body: "你好，附件為最新的爬蟲數據結果。"
-        # 夾帶檔案
-        attachments: "data.csv"  # 填入你的 CSV 檔名
+          body: "你好，附件為最新的爬蟲數據結果。"
+          # 夾帶檔案
+          attachments: "data.csv"  # 填入你的 CSV 檔名
