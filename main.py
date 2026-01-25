@@ -111,7 +111,8 @@ def fetch_and_process(station_code, url):
         
         # 檔名設定
         now_str = datetime.now().strftime("%y%m%d%H%M")
-        filename = f"{now_str}{station_code}.csv"
+        #filename = f"{now_str}{station_code}.csv"
+        filename = "data.csv"
         
         # 存檔
         df.to_csv(filename, index=False, header=False, encoding='utf-8-sig')
@@ -128,7 +129,7 @@ def fetch_and_process(station_code, url):
 # 主程式迴圈
 def main_loop():
     sites = [
-        (("RCKU", "https://aiss.anws.gov.tw/aes/ext/wfis/index.html;jsessionid=CF52B50A47A2353C7DD92FC2CFE7532A#/seqmetar?station=RCKU"),
+        ("RCKU", "https://aiss.anws.gov.tw/aes/ext/wfis/index.html;jsessionid=CF52B50A47A2353C7DD92FC2CFE7532A#/seqmetar?station=RCKU"),
         ("RCMQ", "https://aiss.anws.gov.tw/aes/ext/wfis/index.html;jsessionid=CF52B50A47A2353C7DD92FC2CFE7532A#/seqmetar?station=RCMQ"),
         ("RCNN", "https://aiss.anws.gov.tw/aes/ext/wfis/index.html;jsessionid=CF52B50A47A2353C7DD92FC2CFE7532A#/seqmetar?station=RCNN")
     ]
@@ -139,4 +140,5 @@ def main_loop():
 
 # 開始執行
 if __name__ == "__main__":
+
     main_loop()
