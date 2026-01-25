@@ -16,3 +16,20 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run crawler
         run: python main.py
+
+      - name: 寄送 Email 通知
+        uses: dawidd6/action-send-mail@v3
+        `with:
+          # SMTP 伺服器設定 (以 Gmail 為例)
+          server_address: smtp.gmail.com
+          server_port: 465
+          # 登入資訊 (從 Secrets 讀取)
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          # 郵件內容設定
+          subject: "爬蟲結果報告 - ${{ github.run_id }}"
+          to: "tonykuo@nfu.edu.tw"  # 接收結果的信箱
+          from: "GitHub Scraper <your-email@gmail.com>"
+        body: "你好，附件為最新的爬蟲數據結果。"
+        # 夾帶檔案
+        attachments: "data.csv"  # 填入你的 CSV 檔名
