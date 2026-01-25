@@ -1,10 +1,3 @@
-!apt-get update
-!wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-!dpkg -i google-chrome-stable_current_amd64.deb
-!apt-get install -f -y
-!rm google-chrome-stable_current_amd64.deb
-!pip install webdriver-manager selenium
-
 import os
 import time
 import re
@@ -142,3 +135,4 @@ def main_loop():
 if __name__ == "__main__":
 
     main_loop()
+
