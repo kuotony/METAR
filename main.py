@@ -104,8 +104,8 @@ def fetch_and_process(station_code, url):
         
         # 檔名設定
         now_str = datetime.now().strftime("%y%m%d%H%M")
-        #filename = f"{now_str}{station_code}.csv"
-        filename = "data.csv"
+        filename = f"{now_str}{station_code}.csv"
+        #filename = "data.csv"
         
         # 存檔
         df.to_csv(filename, index=False, header=False, encoding='utf-8-sig')
@@ -135,4 +135,5 @@ def main_loop():
 if __name__ == "__main__":
 
     main_loop()
+
 
