@@ -19,7 +19,7 @@ jobs:
 
       - name: 寄送 Email 通知
         uses: dawidd6/action-send-mail@v3
-        `with:
+        with:
           # SMTP 伺服器設定 (以 Gmail 為例)
           server_address: smtp.gmail.com
           server_port: 465
