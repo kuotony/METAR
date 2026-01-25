@@ -2,6 +2,7 @@ name: Daily Crawler
 on:
   schedule:
     - cron: '0 */12 * * *' # 每 12 小時執行一次
+  workflow_dispatch:  # 這一行是開啟手動執行按鈕的關鍵
 jobs:
   build:
     runs-on: ubuntu-latest
