@@ -1,39 +1,43 @@
-name: Daily Crawler
+name: Auto Weather Scraper
+
+# 設定執行時機
 on:
   schedule:
-    - cron: '0 */12 * * *' # 每 12 小時執行一次
-  workflow_dispatch:  # 這一行是開啟手動執行按鈕的關鍵
+    # 每 12 小時執行一次 (UTC 時間，台灣時間要+8)
+    # 這裡設定為 UTC 00:00 和 12:00 (即台灣時間 08:00 和 20:00)
+    - cron: '0 0,12 * * *'
+  # 允許手動點擊按鈕執行 (方便測試)
+  workflow_dispatch:
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  scrape:
+    runs-on: ubuntu-latest # 使用 GitHub 提供的最新 Linux 虛擬機
+
     steps:
+      # 1. 把你的程式碼下載到虛擬機
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      # 2. 設定 Python 環境
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run crawler
-        run: python main.py
-      # 插入此步驟，300 秒等於 5 分鐘
-      - name: 等待 5 分鐘
-        run: sleep 300
 
-      - name: 寄送 Email 通知
-        uses: dawidd6/action-send-mail@v3
+      # 3. 安裝 Python 套件 (取代你的 !pip install)
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # 4. 執行爬蟲程式
+      - name: Run Scraper
+        run: python main.py
+
+      # 5. 保存結果 (Artifacts)
+      # 因為虛擬機跑完就會銷毀，我們要把產生的 CSV 上傳保存下來
+      - name: Upload CSV Artifact
+        uses: actions/upload-artifact@v4
         with:
-          # SMTP 伺服器設定 (以 Gmail 為例)
-          server_address: smtp.gmail.com
-          server_port: 465
-          # 登入資訊 (從 Secrets 讀取)
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          # 郵件內容設定
-          subject: "爬蟲結果報告 - ${{ github.run_id }}"
-          to: "tonykuo@nfu.edu.tw"  # 接收結果的信箱
-          from: "GitHub Scraper <your-email@gmail.com>"
-          body: "你好，附件為最新的爬蟲數據結果。"
-          # 夾帶檔案
-          attachments: "data.csv"  # 填入你的 CSV 檔名
+          name: weather-data
+          path: "*.csv"
+          retention-days: 10
