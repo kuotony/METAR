@@ -30,7 +30,7 @@ def fetch_and_process(station_code, url):
     try:
         driver.get(url)
         # 等待網頁表格渲染，稍微加長等待時間確保資料完整
-        time.sleep(15) 
+        time.sleep(30) 
         
         # 取得網頁內容
         page_content = driver.find_element(By.TAG_NAME, "body").text
@@ -133,7 +133,4 @@ def main_loop():
 
 # 開始執行
 if __name__ == "__main__":
-
     main_loop()
-
-
