@@ -3,7 +3,7 @@ name: Auto Weather Scraper
 on:
   schedule:
     - cron: '0 0,12 * * *'
-  workflow_dispatch:
+  # workflow_dispatch:
 
 # 設定權限，允許此 Workflow 修改你的倉庫內容
 permissions:
