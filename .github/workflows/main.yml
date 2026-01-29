@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 0,8,16 * * *'
+    - cron: '10 0,8,16 * * *'
   workflow_dispatch:
 
 # 設定權限，允許此 Workflow 修改你的倉庫內容
