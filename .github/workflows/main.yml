@@ -31,8 +31,6 @@ jobs:
       - name: Run Scraper
         run: python main.py
 
-      # --- 修改的部分從這裡開始 ---
-      
       # 不做 Artifacts，改做 Git Commit & Push
       - name: Commit and Push Data
         run: |
