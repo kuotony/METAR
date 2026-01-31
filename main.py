@@ -103,9 +103,8 @@ def fetch_and_process(station_code, url):
         df = pd.DataFrame(all_processed_rows)
         
         # 檔名設定
-        now_str = datetime.now().strftime("%y%m%d%H%M")
-        filename = f"{now_str}{station_code}.csv"
-        #filename = "data.csv"
+        now_str = datetime.now().strftime("%y%m%d_%H%M")
+        filename = f"{now_str}_{station_code}.csv"
         
         # 存檔
         df.to_csv(filename, index=False, header=False, encoding='utf-8-sig')
@@ -134,5 +133,6 @@ def main_loop():
 # 開始執行
 if __name__ == "__main__":
     main_loop()
+
 
 
