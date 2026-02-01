@@ -54,9 +54,11 @@ def fetch_and_process(station_code, url):
                 # --- 資料處理邏輯 (對每一行都做一次) ---
                 current_line = line
                 
-                # (a) 捨棄 COR 與 RMK
+                # (a) 捨棄 COR, RMK, <strong> 與 </strong>
                 current_line = current_line.replace("COR ", "")
                 current_line = current_line.replace("RMK ", "")
+                current_line = current_line.replace("<strong>", "")
+                current_line = current_line.replace("</strong>", "")
                 
                 # (b) 捨棄末尾符號 =
                 current_line = current_line.replace("=", "")
@@ -133,6 +135,7 @@ def main_loop():
 # 開始執行
 if __name__ == "__main__":
     main_loop()
+
 
 
 
