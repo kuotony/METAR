@@ -71,14 +71,14 @@ def fetch_and_process(station_code, url):
                 cloud_layer_start_index = -1
                 
                 for i, token in enumerate(tokens):
-                    # (c) 第4個欄位 (Index 3) 拆分風向風速
+                    # (d) 第4個欄位 (Index 3) 拆分風向風速
                     if i == 3 and len(token) > 3 and token[:3].isdigit():
                         part1 = token[:3]
                         part2 = token[3:]
                         row_data.append(part1)
                         row_data.append(part2)
                     
-                    # (d) 雲層合併 (FEW/SCT/BKN/OVC)
+                    # (e) 雲層合併 (FEW/SCT/BKN/OVC)
                     elif re.match(r'^(FEW|SCT|BKN|OVC)', token):
                         if cloud_layer_start_index == -1:
                             cloud_layer_start_index = len(row_data)
@@ -135,6 +135,7 @@ def main_loop():
 # 開始執行
 if __name__ == "__main__":
     main_loop()
+
 
 
 
